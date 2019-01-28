@@ -38,3 +38,7 @@ a {
   font-family: var(--font-serif);
   text-align: center;
 }
+
+object {
+  width: 100%;
+}

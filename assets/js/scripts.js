@@ -1,5 +1,8 @@
 (function () {
     document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("header").innerHTML='<object type="text/html" data="assets/snippets/header.html" ></object>';
+        document.getElementById("footer").innerHTML='<object type="text/html" data="assets/snippets/footer.html" ></object>';
+
         loadDoc();
     });
 
