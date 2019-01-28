@@ -82,6 +82,7 @@
                 // console.log(dog.image);
                 return `
                     <img id="dog-${index}" 
+                    data-location="${dog.image}" 
                     src=${JSON.stringify(dog.image)} />
                 `;
             });
@@ -92,6 +93,33 @@
             addToList.innerHTML = output;
             document.querySelector('#dogList').appendChild(addToList);
         });
+
+        let modal = document.getElementById("modalImageContainer");
+        let closeButton = document.querySelector(".close-button");
+        closeButton.addEventListener("click", toggleModal, false);
+
+        function toggleModal() {
+            modal.classList.toggle("show-modal");
+        }
+
+        let theParent = document.querySelector("#dogList");
+        theParent.addEventListener("click", showLargeImage, false);
+
+        function showLargeImage(e) {
+            if (e.target !== e.currentTarget) {
+                //let clickedItem = e.target.id;
+                let clickedItem = e.target.getAttribute("data-location");
+                let clickedItemIndex = e.target.getAttribute("id");
+
+                // alert("Hello " + clickedItem);
+                // alert("Hello " + clickedItemIndex);
+
+                document.getElementById("modalImage").setAttribute('src', clickedItem);
+
+                toggleModal();
+            }
+            e.stopPropagation();
+        }
     }
 
 })();
