@@ -1,7 +1,52 @@
 (function () {
     document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("header").innerHTML='<object type="text/html" data="assets/snippets/header.html" ></object>';
-        document.getElementById("footer").innerHTML='<object type="text/html" data="assets/snippets/footer.html" ></object>';
+        fetch('assets/snippets/header.html')
+        .then(function (response) {
+                // When the page is loaded convert it to text
+                return response.text()
+            })
+                .then(function (html) {
+                    // Initialize the DOM parser
+                    var parser = new DOMParser();
+
+                    // Parse the text
+                    var doc = parser.parseFromString(html, "text/html");
+
+                    // You can now even select part of that html as you would in the regular DOM
+                    // Example:
+                    var docArticle = doc.querySelector('header').innerHTML;
+
+                    console.log(doc);
+                    document.getElementById("header").innerHTML = docArticle
+                })
+                .catch(function (err) {
+                    console.log('Failed to fetch page: ', err);
+                });
+
+
+        fetch('assets/snippets/footer.html')
+        .then(function (response) {
+                // When the page is loaded convert it to text
+                return response.text()
+            })
+                .then(function (html) {
+                    // Initialize the DOM parser
+                    var parser = new DOMParser();
+
+                    // Parse the text
+                    var doc = parser.parseFromString(html, "text/html");
+
+                    // You can now even select part of that html as you would in the regular DOM
+                    // Example:
+                    var docArticle = doc.querySelector('footer').innerHTML;
+
+                    console.log(doc);
+                    document.getElementById("footer").innerHTML = docArticle
+                })
+                .catch(function (err) {
+                    console.log('Failed to fetch page: ', err);
+                });
+
 
         loadDoc();
     });
