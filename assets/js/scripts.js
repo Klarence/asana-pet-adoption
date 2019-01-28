@@ -76,6 +76,7 @@
         getJSON('assets/data/dogs.json', function (data) {
             // console.log(data);
             data = data.dogs;
+
             // console.log(data);
 
             let output = data.map((dog, index) => {
@@ -85,7 +86,7 @@
                     data-location="${dog.image}" 
                     src=${JSON.stringify(dog.image)} />
                 `;
-            });
+            }).join('');
 
             //  document.querySelector('#dogList').innerHTML = output;
 
