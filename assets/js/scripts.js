@@ -72,11 +72,15 @@
                 }
             };
         }
+        /////////////////////////////////////////////////////////
+        // Switched out dogs with dogs-alt for square thumbnails
+        /////////////////////////////////////////////////////////
+        // switch out dog.thumb for dog.image if using dog.json
 
-        getJSON('assets/data/dogs.json', function (data) {
-            // console.log(data);
+        // getJSON('assets/data/dogs.json', function(data){
+        getJSON('assets/data/dogs-alt.json', function (data) {
+            // console.log(data.dogs);
             data = data.dogs;
-
             // console.log(data);
 
             let output = data.map((dog, index) => {
@@ -84,15 +88,41 @@
                 return `
                     <img id="dog-${index}" 
                     data-location="${dog.image}" 
-                    src=${JSON.stringify(dog.image)} />
+                    src=${JSON.stringify(dog.thumb)} 
+                    alt="thumbnail images of puppy dogs for adoption"/>
                 `;
             }).join('');
 
-            //  document.querySelector('#dogList').innerHTML = output;
-
+            // document.querySelector('#dogList').innerHTML = output;
             let addToList = document.createElement("div");
             addToList.innerHTML = output;
+            console.log(addToList);
             document.querySelector('#dogList').appendChild(addToList);
+
+            /////////////////////////////////////////////////////////
+            // Mock Infinite Scroll
+            /////////////////////////////////////////////////////////
+
+            // if AJAX call was RESTFUL, would implement call to get say 20 dog objects at a time
+            // uncomment this section if you want to simulate it.
+            // let additionalOutput = output;
+
+            // document.addEventListener("scroll", function (event) {
+            //     checkForNewItems();
+            // });
+
+            // let checkForNewItems = function() {
+            //     let lastDiv = document.querySelector("#dogList > div:last-child");
+            //     let lastDivOffset = lastDiv.offsetTop + lastDiv.clientHeight;
+            //     let pageOffset = window.pageYOffset + window.innerHeight;
+
+            //     if(pageOffset > lastDivOffset - 20) {
+            //         let newDiv = document.createElement("div");
+            //         newDiv.innerHTML = additionalOutput;
+            //         document.getElementById("dogList").appendChild(newDiv);
+            //         checkForNewItems();
+            //     }
+            // };
         });
 
         let modal = document.getElementById("modalImageContainer");
@@ -107,7 +137,7 @@
         theParent.addEventListener("click", showLargeImage, false);
 
         function showLargeImage(e) {
-            if (e.target !== e.currentTarget) {
+            if (e.target !== e.currentTarget && e.target.nodeName === 'IMG') {
                 //let clickedItem = e.target.id;
                 let clickedItem = e.target.getAttribute("data-location");
                 let clickedItemIndex = e.target.getAttribute("id");
